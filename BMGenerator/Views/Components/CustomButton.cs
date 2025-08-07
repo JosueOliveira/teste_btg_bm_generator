@@ -10,6 +10,6 @@ public class CustomButton : Button
     public CustomButton()
     {
         BackgroundColor = Colors.White;
-        TextColor = Colors.DarkGray;
+        TextColor = Color.FromArgb("#2B1D40");
     }
 }

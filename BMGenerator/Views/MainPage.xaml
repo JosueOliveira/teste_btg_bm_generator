@@ -6,11 +6,11 @@
              x:Class="BMGeneratorTest.Views.MainPage"
              x:DataType="viewmodel:MainViewModel"
              BackgroundColor="Black"
-             Title="Bm Generator">
+             Title="">
 
     <ScrollView x:Name="MainScroll"
                 Orientation="Vertical">
-        
+
         <Grid x:Name="GridContent"
               RowDefinitions="Auto, Auto, Auto"
               ColumnDefinitions="3*,*">
@@ -19,49 +19,70 @@
                         Orientation="Horizontal"
                         HeightRequest="{OnPlatform WinUI=600}"
                         Margin="10">
+
                 <GraphicsView x:Name="ChartView" 
-                          BackgroundColor="#756A6A"
-                          HeightRequest="{OnPlatform WinUI=550}"
-                          Margin="10" />
+                              BackgroundColor="{Binding ColorGraphicSelected.Color, Mode=TwoWay}"                                                                   
+                              HeightRequest="{OnPlatform WinUI=550}"/>
+
             </ScrollView>
 
             <HorizontalStackLayout x:Name="ColorsConfig" 
-                               Padding="10"
-                               HorizontalOptions="Start">
-                <components:CustomLabel Text="Cor do gráfico" VerticalTextAlignment="Center"/>
+                                   Padding="10"
+                                   HorizontalOptions="Start">
+                
+                <components:CustomLabel Text="Cor do gráfico" 
+                                        VerticalTextAlignment="Center"/>
                 <Picker ItemsSource="{Binding ColorItems}"
-                    SelectedItem="{Binding ColorGraphicSelected}" 
-                    WidthRequest="{OnPlatform WinUI=150}"
-                    TextColor="White"
-                    ItemDisplayBinding="{Binding Name}"/>
+                        SelectedItem="{Binding ColorGraphicSelected}" 
+                        WidthRequest="{OnPlatform WinUI=150}"
+                        TextColor="White"
+                        ItemDisplayBinding="{Binding Name}"/>
 
-                <components:CustomLabel Text="Linha do gráfico" VerticalTextAlignment="Center"/>
+                <components:CustomLabel Text="Linha do gráfico" 
+                                        VerticalTextAlignment="Center"/>
                 <Picker ItemsSource="{Binding ColorItems}"
-                    SelectedItem="{Binding ColorGraphicLineSelected}" 
-                    WidthRequest="{OnPlatform WinUI=150}"
-                    TextColor="White"
-                    ItemDisplayBinding="{Binding Name}"/>
+                        SelectedItem="{Binding ColorGraphicLineSelected}" 
+                        WidthRequest="{OnPlatform WinUI=150}"
+                        TextColor="White"
+                        ItemDisplayBinding="{Binding Name}"/>
 
             </HorizontalStackLayout>
 
             <VerticalStackLayout x:Name="FormContainer"  
-                             Padding="20"
-                             Spacing="15"
-                             VerticalOptions="Start">
+                                 Padding="20"
+                                 Spacing="15"
+                                 VerticalOptions="Start">
+
                 <components:CustomLabel  Text="Preço Inicial"/>
-                <components:CustomEntry  Text="{Binding PrecoInicial}"/>
+                <components:CustomEntry  x:Name="PrecoInicial" 
+                                         Text="{Binding PrecoInicial}"/>
+
 
                 <components:CustomLabel Text="Volatilidade média(%)"/>
-                <components:CustomEntry Text="{Binding VolatilidadeMedia}" />
+                <Slider Minimum="1"
+                        Maximum="100" Value="{Binding VolatilidadeMedia, Mode=TwoWay}"/>
+                <components:CustomLabel Text="{Binding VolatilidadeMedia}"/>
+
 
                 <components:CustomLabel Text="Retorno média(%)"/>
-                <components:CustomEntry Text="{Binding RetornoMedio}"/>
+                <Slider Minimum="1" 
+                        Maximum="100" 
+                        Value="{Binding RetornoMedio, Mode=TwoWay}"/>
+                <components:CustomLabel Text="{Binding RetornoMedio}"/>
+
 
                 <components:CustomLabel Text="Tempo(dias)"/>
-                <components:CustomEntry Text="{Binding TempoDias}"/>
+                <Stepper Minimum="1" 
+                         Maximum="365" 
+                         Increment="1" 
+                         Value="{Binding TempoDias, Mode=TwoWay}"
+                         BackgroundColor="White"/>
+                <components:CustomLabel Text="{Binding TempoDias}"/>
+
 
                 <components:CustomButton Text="Gerar Simulação" 
-                                     Command="{Binding GenerateGraphicCommandCommand}"/>
+                                         Command="{Binding GenerateGraphicCommandCommand}"/>
+
             </VerticalStackLayout>
         </Grid>
 

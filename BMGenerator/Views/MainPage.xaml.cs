@@ -1,6 +1,8 @@
 using BMGeneratorTest.Models.Interfaces;
 using BMGeneratorTest.Services;
 using BMGeneratorTest.ViewModels;
+using Microsoft.Maui.Controls.Shapes;
+using System.Windows.Markup;
 
 namespace BMGeneratorTest.Views;
 
@@ -16,15 +18,29 @@ public partial class MainPage : ContentPage
         _chartDrawable = chartDrawable;
 		ChartView.Drawable = _chartDrawable;
 
+        this.Loaded += (s, e) =>
+        {
+            PrecoInicial.Focus();
+        };
+
+        ChartView.SizeChanged += (s, e) =>
+        {
+            ChartView.Clip = new RoundRectangleGeometry
+            {
+                CornerRadius = new CornerRadius(10),
+                Rect = new Rect(0, 0, ChartView.Width, ChartView.Height)
+            };
+        };
+
         viewModel.PropertyChanged += (s, e) =>
         {
             if(e.PropertyName == nameof(viewModel.Values))
             {
                 if(viewModel.Values.Count > 1)
                 {
-                    ChartView.MaximumWidthRequest = Math.Max(viewModel.Values.Count * 20, 300);
-                    ChartView.Invalidate();
                     _chartDrawable.Values = viewModel.Values;
+                    ChartView.MaximumWidthRequest = Math.Max(viewModel.Values.Count * 20, 300);                    
+                    ChartView.Invalidate();                                        
                 }              
             }
 
@@ -43,6 +59,8 @@ public partial class MainPage : ContentPage
             }
         };
 	}
+
+   
 
     protected override void OnSizeAllocated(double width, double height)
     {
