@@ -19,7 +19,7 @@ namespace BMGeneratorTest
             builder.Services.AddTransient<IBMGenerator, BMGeneratorService>();
             builder.Services.AddTransient<IGraficConfigRepository, GraficConfigRepository>();
             builder.Services.AddTransient<IGraphicConfigService, GraphicConfigService>();
-            builder.Services.AddTransient<IColorService,  ColorService>();
+            builder.Services.AddTransient<IColorService, ColorService>();
 
             builder.Services.AddSingleton<ChartDrawable>();
             builder.Services.AddSingleton<MainPage>();
@@ -33,8 +33,18 @@ namespace BMGeneratorTest
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
+#if WINDOWS
+            Microsoft.Maui.Handlers.WindowHandler.Mapper.AppendToMapping("FullscreenWindow", (handler, view) =>
+            {
+                var window = handler.VirtualView;
+
+                Platforms.Windows.Services.WindowService.CenterAndResize(window, 1200, 800);
+
+            });
+#endif
+
 #if DEBUG
-    		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
 
             return builder.Build();

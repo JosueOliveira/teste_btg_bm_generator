@@ -42,5 +42,46 @@ public partial class MainPage : ContentPage
                 ChartView.Invalidate();
             }
         };
-	} 
+	}
+
+    protected override void OnSizeAllocated(double width, double height)
+    {
+        base.OnSizeAllocated(width, height);
+
+        if (width < 600)
+        { 
+            GridContent.SetRow(FormContainer, 0);
+            GridContent.SetColumn(FormContainer, 0);
+            GridContent.SetColumnSpan(FormContainer, 2);
+
+            GridContent.SetRow(GraphicContainer, 1);
+            GridContent.SetColumn(GraphicContainer, 0);
+            GridContent.SetColumnSpan(GraphicContainer, 2);
+
+            GridContent.SetRow(ColorsConfig, 2);
+            GridContent.SetColumn(ColorsConfig, 0);
+            GridContent.SetColumnSpan(ColorsConfig, 2);
+
+            ChartView.WidthRequest = 1000;
+           
+        }
+        else
+        {  
+            GridContent.SetRow(GraphicContainer, 0);
+            GridContent.SetColumn(GraphicContainer, 0);
+            GridContent.SetColumnSpan(GraphicContainer, 1);
+
+            GridContent.SetRow(FormContainer, 0);
+            GridContent.SetColumn(FormContainer, 1);
+            GridContent.SetColumnSpan(FormContainer, 1);
+
+
+            GridContent.SetRow(ColorsConfig, 1);
+            GridContent.SetColumn(ColorsConfig, 0);
+            GridContent.SetColumnSpan(ColorsConfig, 1);
+
+            ChartView.ClearValue(GraphicsView.WidthRequestProperty);
+           
+        }
+    }
 }
