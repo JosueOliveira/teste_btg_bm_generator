@@ -15,7 +15,7 @@ public class GraficConfigRepository : IGraficConfigRepository
     public GraficConfigRepository(IDataStore<GraphicConfigModel> dataStore)
     {
         this._dataStore = dataStore;
-        _graphicConfig = _dataStore.LoadData().FirstOrDefault() ?? new GraphicConfigModel { BackgroundColor = "#000000", LineColor = "#FFFF00" };
+        _graphicConfig = _dataStore.LoadData().FirstOrDefault() ?? new GraphicConfigModel { BackgroundColor = "#756A6A", LineColor = Colors.Blue.ToHex() };
     }
 
     public void Insert(GraphicConfigModel graficConfig)
