@@ -1,4 +1,7 @@
-﻿using BMGeneratorTest.Models.Interfaces;
+﻿using BMGeneratorTest.Models.DAO;
+using BMGeneratorTest.Models.Entities;
+using BMGeneratorTest.Models.Interfaces;
+using BMGeneratorTest.Repository;
 using BMGeneratorTest.Services;
 using BMGeneratorTest.ViewModels;
 using BMGeneratorTest.Views;
@@ -11,9 +14,14 @@ namespace BMGeneratorTest
         public static MauiApp CreateMauiApp()
         {
             var builder = MauiApp.CreateBuilder();
-
+            builder.Services.AddSingleton<IDataStore<GraphicConfigModel>>(sp =>
+            new DataStore<GraphicConfigModel>(GraphicConfigModel.tableName));
             builder.Services.AddTransient<IBMGenerator, BMGeneratorService>();
+            builder.Services.AddTransient<IGraficConfigRepository, GraficConfigRepository>();
+            builder.Services.AddTransient<IGraphicConfigService, GraphicConfigService>();
+            builder.Services.AddTransient<IColorService,  ColorService>();
 
+            builder.Services.AddSingleton<ChartDrawable>();
             builder.Services.AddSingleton<MainPage>();
             builder.Services.AddSingleton<MainViewModel>();
 

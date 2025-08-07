@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BMGeneratorTest.Models.Entities;
+using BMGeneratorTest.Models.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,21 +9,29 @@ using System.Threading.Tasks;
 namespace BMGeneratorTest.Services;
 public class ChartDrawable : IDrawable
 {    
+    private readonly IGraficConfigRepository _graficConfigRepository;
+    private GraphicConfigModel graphicConfigModel;
     public List<float> Values { get; set; } = new List<float> 
     {
         0,0
     };
 
+    public ChartDrawable(IGraficConfigRepository graficConfigRepository)
+    {
+        _graficConfigRepository = graficConfigRepository;
+        graphicConfigModel = _graficConfigRepository.LoadObject();
+    }
+
     
     public void Draw(ICanvas canvas, RectF dirtyRect)
-    {
+    {      
         if (Values == null || Values.Count < 2)
             return;
 
         if (Values == null || Values.Count < 2)
             return;
 
-        canvas.FillColor = Color.FromArgb("#756A6A");
+        canvas.FillColor = Color.FromArgb(graphicConfigModel.BackgroundColor);
         canvas.FillRectangle(dirtyRect);
 
         float width = dirtyRect.Width;
@@ -43,7 +53,7 @@ public class ChartDrawable : IDrawable
             points.Add(new PointF(x, y));
         }
          
-        canvas.StrokeColor = Color.FromArgb("#662978");
+        canvas.StrokeColor = Color.FromArgb(graphicConfigModel.LineColor);
         canvas.StrokeSize = 2;
 
         for (int i = 0; i < points.Count - 1; i++)
@@ -56,6 +66,18 @@ public class ChartDrawable : IDrawable
          
         canvas.FillColor = Colors.Red;
         canvas.FillCircle(points[^1].X, points[^1].Y, 5);
+    }
+
+    public void UpdateBackgroundColor(Color color)
+    {
+        graphicConfigModel.BackgroundColor = color.ToArgbHex();
+        _graficConfigRepository.Insert(graphicConfigModel);
+    }
+
+    public void UpdateGraphicLineColor(Color color)
+    {
+        graphicConfigModel.LineColor = color.ToArgbHex();
+        _graficConfigRepository.Insert(graphicConfigModel);
     }
 
 }

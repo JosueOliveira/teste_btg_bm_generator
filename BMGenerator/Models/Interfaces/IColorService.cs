@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace BMGeneratorTest.Models.Interfaces;
-public interface IDrawable
+public interface IColorService
 {
-    void Draw(ICanvas canvas, RectF dirtyRect);
+    List<ColorItem> GetColors();
 }

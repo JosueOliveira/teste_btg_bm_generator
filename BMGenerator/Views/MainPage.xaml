@@ -7,19 +7,43 @@
              x:DataType="viewmodel:MainViewModel"
              BackgroundColor="Black"
              Title="Bm Generator">
-    <Grid ColumnDefinitions="3*,*">
-        <ScrollView Orientation="Horizontal"                   
+    <Grid RowDefinitions="Auto, Auto"
+          ColumnDefinitions="3*,*">
+        
+        <ScrollView Orientation="Horizontal"  
+                    Grid.Row="0"
                     Grid.Column="0"
-                    HeightRequest="900"
+                    HeightRequest="600"
                     Margin="10">
             <GraphicsView x:Name="ChartView" 
                           BackgroundColor="#756A6A"
                           HeightRequest="600"
                           Margin="10"
                           Grid.Column="0"/>
-        </ScrollView> 
-        
+        </ScrollView>
+
+        <HorizontalStackLayout Grid.Row="1"
+                               Grid.Column="0"  
+                               Padding="10"
+                               HorizontalOptions="Start">
+            <components:CustomLabel Text="Cor do gráfico" VerticalTextAlignment="Center"/>
+            <Picker ItemsSource="{Binding ColorItems}"
+                    SelectedItem="{Binding ColorGraphicSelected}" 
+                    WidthRequest="150"
+                    TextColor="White"
+                    ItemDisplayBinding="{Binding Name}"/>
+
+            <components:CustomLabel Text="Linha do gráfico" VerticalTextAlignment="Center"/>
+            <Picker ItemsSource="{Binding ColorItems}"
+                    SelectedItem="{Binding ColorGraphicLineSelected}" 
+                    WidthRequest="150"
+                    TextColor="White"
+                    ItemDisplayBinding="{Binding Name}"/>
+
+        </HorizontalStackLayout> 
+
         <VerticalStackLayout Grid.Column="1"
+                             Grid.Row="0"
                              Padding="20"
                              Spacing="15"
                              VerticalOptions="Start">
@@ -37,6 +61,6 @@
 
             <components:CustomButton Text="Gerar Simulação" 
                                      Command="{Binding GenerateGraphicCommandCommand}"/>
-        </VerticalStackLayout>
+        </VerticalStackLayout>        
     </Grid>
 </ContentPage>
