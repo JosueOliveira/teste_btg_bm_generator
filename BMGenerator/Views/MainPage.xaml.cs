@@ -9,11 +9,10 @@ namespace BMGeneratorTest.Views;
 public partial class MainPage : ContentPage
 {
 	private ChartDrawable _chartDrawable;
-    private MainViewModel _mainViewModel;
 	public MainPage(MainViewModel viewModel, ChartDrawable chartDrawable)
 	{
 		InitializeComponent();
-		BindingContext = _mainViewModel= viewModel;
+		BindingContext = viewModel;
 
         _chartDrawable = chartDrawable;
 		ChartView.Drawable = _chartDrawable;
@@ -30,7 +29,7 @@ public partial class MainPage : ContentPage
                 CornerRadius = new CornerRadius(10),
                 Rect = new Rect(0, 0, ChartView.Width, ChartView.Height)
             };
-        };
+        }; 
 
         viewModel.PropertyChanged += (s, e) =>
         {
@@ -57,10 +56,9 @@ public partial class MainPage : ContentPage
                 chartDrawable.UpdateGraphicLineColor(viewModel.ColorGraphicLineSelected.Color);
                 ChartView.Invalidate();
             }
-        };
-	}
-
-   
+        }; 
+         
+	}   
 
     protected override void OnSizeAllocated(double width, double height)
     {

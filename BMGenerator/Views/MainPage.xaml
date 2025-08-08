@@ -5,11 +5,12 @@
              xmlns:components="clr-namespace:BMGeneratorTest.Views.Components"
              x:Class="BMGeneratorTest.Views.MainPage"
              x:DataType="viewmodel:MainViewModel"
-             BackgroundColor="Black"
+             BackgroundColor="Black"             
              Title="">
 
     <ScrollView x:Name="MainScroll"
-                Orientation="Vertical">
+                Orientation="Vertical"
+                Margin="20">
 
         <Grid x:Name="GridContent"
               RowDefinitions="Auto, Auto, Auto"
@@ -51,6 +52,7 @@
             <VerticalStackLayout x:Name="FormContainer"  
                                  Padding="20"
                                  Spacing="15"
+                                 Margin="10"
                                  VerticalOptions="Start">
 
                 <components:CustomLabel  Text="Preço Inicial"/>

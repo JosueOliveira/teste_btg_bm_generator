@@ -8,7 +8,7 @@ namespace BMGeneratorTest
         {
             InitializeComponent();
 
-            MainPage = new NavigationPage(mainPage);
+            MainPage = mainPage;
         }       
     }
 }
